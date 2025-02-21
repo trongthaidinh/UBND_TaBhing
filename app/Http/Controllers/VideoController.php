@@ -21,4 +21,4 @@ class VideoController extends Controller
         }
         return view('videos.show', compact('video'));
     }
-}ư
+}

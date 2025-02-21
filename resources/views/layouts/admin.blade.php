@@ -23,74 +23,83 @@
 <body class="font-sans antialiased bg-gray-50">
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
-        <aside class="w-64 bg-white shadow-lg z-50 transition-all duration-300 ease-in-out">
-            <div class="flex items-center justify-center h-16 border-b">
-                <h1 class="text-2xl font-bold text-primary">UBND Admin</h1>
+        <aside class="w-64 bg-primary text-white shadow-lg z-50 transition-all duration-300 ease-in-out relative">
+            <div class="flex flex-col items-center justify-center py-4 border-b border-white/10">
+                <img src="{{ asset('images/quochuy.png') }}" alt="Logo" class="h-10 mr-2">
+                <h1 class="text-xl font-bold flex items-center py-2">
+                    UBND XÃ ĐẮC TÔI
+                </h1>
             </div>
 
             <nav class="py-4">
-                <ul>
+                <div class="px-4 text-xs uppercase font-semibold mb-2 opacity-70">Tổng Quan</div>
+                <ul class="mb-4">
                     <li>
-                        <a href="{{ route('admin.dashboard') }}" 
-                           class="flex items-center px-6 py-3 hover:bg-gray-100 {{ request()->routeIs('admin.dashboard') ? 'bg-gray-100 text-primary' : 'text-gray-700' }}">
+                        <a href="{{ route('admin.dashboard.index') }}" 
+                           class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.dashboard.index') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
                             <i class="ri-dashboard-line mr-3 text-xl"></i>
                             Bảng điều khiển
                         </a>
                     </li>
+                </ul>
+
+                <div class="px-4 text-xs uppercase font-semibold mb-2 opacity-70">Quản Lý Nội Dung</div>
+                <ul class="mb-4">
                     <li>
                         <a href="{{ route('admin.posts.index') }}" 
-                           class="flex items-center px-6 py-3 hover:bg-gray-100 {{ request()->routeIs('admin.posts.*') ? 'bg-gray-100 text-primary' : 'text-gray-700' }}">
+                           class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.posts.*') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
                             <i class="ri-article-line mr-3 text-xl"></i>
-                            Quản lý Bài viết
+                            Bài Viết
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('admin.categories.index') }}" 
-                           class="flex items-center px-6 py-3 hover:bg-gray-100 {{ request()->routeIs('admin.categories.*') ? 'bg-gray-100 text-primary' : 'text-gray-700' }}">
+                           class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.categories.*') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
                             <i class="ri-folder-line mr-3 text-xl"></i>
-                            Quản lý Chuyên mục
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.homepage-blocks.index') }}" 
-                           class="flex items-center px-6 py-3 hover:bg-gray-100 {{ request()->routeIs('admin.homepage-blocks.*') ? 'bg-gray-100 text-primary' : 'text-gray-700' }}">
-                            <i class="ri-layout-grid-line mr-3 text-xl"></i>
-                            Quản lý Khối Trang Chủ
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.users.index') }}" 
-                           class="flex items-center px-6 py-3 hover:bg-gray-100 {{ request()->routeIs('admin.users.*') ? 'bg-gray-100 text-primary' : 'text-gray-700' }}">
-                            <i class="ri-user-line mr-3 text-xl"></i>
-                            Quản lý Người dùng
+                            Chuyên Mục
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('admin.photo-library.index') }}" 
-                           class="flex items-center px-6 py-3 hover:bg-gray-100 {{ request()->routeIs('admin.photo-library.*') ? 'bg-gray-100 text-primary' : 'text-gray-700' }}">
+                           class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.photo-library.*') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
                             <i class="ri-image-line mr-3 text-xl"></i>
-                            Quản lý Thư viện Ảnh
+                            Thư Viện Ảnh
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('admin.videos.index') }}" 
-                        class="flex items-center px-6 py-3 hover:bg-gray-100 {{ request()->routeIs('admin.videos.*') ? 'bg-gray-100 text-primary' : 'text-gray-700' }}">
+                           class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.videos.*') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
                             <i class="ri-video-line mr-3 text-xl"></i>
-                            Quản lý Video
+                            Video
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="px-4 text-xs uppercase font-semibold mb-2 opacity-70">Cấu Hình Trang</div>
+                <ul class="mb-4">
+                    <li>
+                        <a href="{{ route('admin.homepage-blocks.index') }}" 
+                           class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.homepage-blocks.*') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
+                            <i class="ri-layout-grid-line mr-3 text-xl"></i>
+                            Khối Trang Chủ
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('admin.external-links.index') }}" 
-                        class="flex items-center px-6 py-3 hover:bg-gray-100 {{ request()->routeIs('admin.external-links.*') ? 'bg-gray-100 text-primary' : 'text-gray-700' }}">
+                           class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.external-links.*') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
                             <i class="ri-link mr-3 text-xl"></i>
-                            Quản lý Liên Kết
+                            Liên Kết
                         </a>
                     </li>
-                    <li class="border-t mt-4 pt-4">
-                        <a href="{{ route('home') }}" 
-                           class="flex items-center px-6 py-3 hover:bg-gray-100 text-gray-700">
-                            <i class="ri-home-4-line mr-3 text-xl"></i>
-                            Về Trang chủ
+                </ul>
+
+                <div class="px-4 text-xs uppercase font-semibold mb-2 opacity-70">Quản Trị</div>
+                <ul>
+                    <li>
+                        <a href="{{ route('admin.users.index') }}" 
+                           class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.users.*') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
+                            <i class="ri-user-line mr-3 text-xl"></i>
+                            Người Dùng
                         </a>
                     </li>
                 </ul>

@@ -1,26 +1,26 @@
 <?php
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\AdminPostController;
-use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\ServicesController;
-use App\Http\Controllers\ProfileLookupController;
-use App\Http\Controllers\BusinessSupportController;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\AdminExternalLinkController;
 use App\Http\Controllers\AdminHomepageBlockController;
 use App\Http\Controllers\AdminPhotoLibraryController;
-use App\Http\Controllers\VideoController;
+use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminVideoController;
-use App\Http\Controllers\PhotoGalleryController;
-use App\Http\Controllers\AdminExternalLinkController;
-use App\Http\Controllers\RssFeedController;
+use App\Http\Controllers\BusinessSupportController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PhotoGalleryController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileLookupController;
+use App\Http\Controllers\RssFeedController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\VideoController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -65,7 +65,7 @@ Route::get('/rss', [RssFeedController::class, 'generateRssFeed'])
 
 // Admin Routes
 Route::middleware(['auth', 'role:admin,editor'])->prefix('admin')->group(function () {
-    Route::get('/', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard.index');
 
     // Admin Post Routes
     Route::prefix('posts')->group(function () {
@@ -74,7 +74,8 @@ Route::middleware(['auth', 'role:admin,editor'])->prefix('admin')->group(functio
         Route::post('/', [AdminPostController::class, 'store'])->name('admin.posts.store');
         Route::get('/{post}/edit', [AdminPostController::class, 'edit'])->name('admin.posts.edit');
         Route::put('/{post}', [AdminPostController::class, 'update'])->name('admin.posts.update');
-        Route::put('/{post}/approve', [AdminPostController::class, 'approve'])->name('admin.posts.approve')
+        Route::put('/{post}/approve', [AdminPostController::class, 'approve'])
+            ->name('admin.posts.approve')
             ->middleware('role:admin');
         Route::delete('/{post}', [AdminPostController::class, 'destroy'])->name('admin.posts.destroy');
     });
@@ -87,8 +88,8 @@ Route::middleware(['auth', 'role:admin,editor'])->prefix('admin')->group(functio
         Route::get('/{category}/edit', [AdminCategoryController::class, 'edit'])->name('admin.categories.edit');
         Route::put('/{category}', [AdminCategoryController::class, 'update'])->name('admin.categories.update');
         Route::delete('/{category}', [AdminCategoryController::class, 'destroy'])->name('admin.categories.destroy');
-        Route::post('/{category}/toggle-home-visibility', 
-            [AdminCategoryController::class, 'toggleHomeVisibility'])
+        Route::post('/{category}/toggle-home-visibility',
+                [AdminCategoryController::class, 'toggleHomeVisibility'])
             ->name('admin.categories.toggle-home-visibility');
     });
 
@@ -185,4 +186,4 @@ Route::prefix('business')->group(function () {
 Route::get('/tin-tuc/{slug}', [NewsController::class, 'detail'])->name('news.detail');
 
 // Include authentication routes
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

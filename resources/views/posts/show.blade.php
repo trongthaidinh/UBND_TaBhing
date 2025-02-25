@@ -20,19 +20,26 @@
                     
                     <h1 class="text-xl md:text-3xl font-bold mb-4 md:mb-6">{{ $post->title }}</h1>
                     
-                    @if($post->featured_image)
-                        <div class="mb-4 md:mb-6">
-                            <img 
-                                src="{{ asset('storage/' . $post->featured_image) }}" 
-                                alt="{{ $post->title }}" 
-                                class="w-full h-auto object-cover rounded-lg"
-                            >
-                        </div>
-                    @endif
-                    
                     <div class="prose max-w-none text-sm md:text-base">
                         {!! $post->content !!}
                     </div>
+
+                    @if($post->document)
+                        <div class="mt-4">
+                            @php
+                                $documentPath = asset('storage/' . $post->document);
+                                $extension = pathinfo($post->document, PATHINFO_EXTENSION);
+                            @endphp
+
+                            @if($extension === 'pdf')
+                                <iframe src="{{ $documentPath }}" width="100%" height="800px"></iframe>
+                            @elseif(in_array($extension, ['doc', 'docx']))
+                                <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{ urlencode($documentPath) }}" width="100%" height="800px"></iframe>
+                            @else
+                                <p>Document format not supported for display.</p>
+                            @endif
+                        </div>
+                    @endif
                 </div>
             </article>
 

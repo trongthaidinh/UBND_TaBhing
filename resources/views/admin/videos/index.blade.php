@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('title', 'Quản lý Video')
-@section('page_title', 'Danh sách Video')
 
 @section('content')
 <div class="bg-white shadow-md rounded-lg">

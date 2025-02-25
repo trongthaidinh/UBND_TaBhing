@@ -18,17 +18,17 @@ class AdminPostController extends Controller
         $query = Post::query();
 
         // Filter by status
-        if ($request->has('status')) {
+        if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
 
         // Filter by category
-        if ($request->has('category_id')) {
+        if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
         }
 
         // Search by title
-        if ($request->has('search')) {
+        if ($request->filled('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
@@ -61,10 +61,11 @@ class AdminPostController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
-            'excerpt' => 'nullable|string|max:255',
+            'excerpt' => 'nullable|string',
             'content' => 'required',
             'category_id' => 'required|exists:categories,id',
-            'featured_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'featured_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'document' => 'nullable|file|mimes:pdf,doc,docx|max:2048'
         ]);
 
         // Add the excerpt to the validated data
@@ -85,6 +86,12 @@ class AdminPostController extends Controller
             $validatedData['featured_image'] = $imagePath;
         }
 
+        // Xử lý tài liệu
+        if ($request->hasFile('document')) {
+            $documentPath = $request->file('document')->store('documents', 'public');
+            $validatedData['document'] = $documentPath;
+        }
+
         // Tạo bài viết
         $post = Post::create($validatedData);
 
@@ -103,10 +110,12 @@ class AdminPostController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
+            'excerpt' => 'nullable|string',
             'content' => 'required',
             'category_id' => 'required|exists:categories,id',
             'status' => 'in:draft,pending,published,archived',
-            'featured_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'featured_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'document' => 'nullable|file|mimes:pdf,doc,docx|max:2048'
         ]);
 
         // Cập nhật slug nếu tiêu đề thay đổi
@@ -118,6 +127,12 @@ class AdminPostController extends Controller
         if ($request->hasFile('featured_image')) {
             $imagePath = $request->file('featured_image')->store('posts', 'public');
             $validatedData['featured_image'] = $imagePath;
+        }
+
+        // Xử lý tài liệu
+        if ($request->hasFile('document')) {
+            $documentPath = $request->file('document')->store('documents', 'public');
+            $validatedData['document'] = $documentPath;
         }
 
         // Cập nhật bài viết

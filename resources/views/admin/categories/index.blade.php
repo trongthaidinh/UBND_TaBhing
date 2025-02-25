@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('title', 'Quản lý Danh mục')
-@section('page_title', 'Danh sách Danh mục')
 
 @section('content')
 <div class="bg-white shadow-md rounded-lg">

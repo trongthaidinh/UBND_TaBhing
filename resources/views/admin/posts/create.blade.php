@@ -42,7 +42,6 @@
                 </select>
             </div>
 
-
             <div>
                 <label for="content" class="block text-sm font-medium text-gray-700 mb-1">Nội dung</label>
                 <textarea name="content" id="content" rows="10"
@@ -67,6 +66,11 @@
                 <label for="featured_image" class="block text-sm font-medium text-gray-700">Ảnh đại diện</label>
                 <input type="file" name="featured_image" id="featured_image"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/50">
+            </div>
+
+            <div>
+                <label for="document" class="block text-sm font-medium text-gray-700">Tài liệu</label>
+                <input type="file" name="document" id="document" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/50">
             </div>
 
             <div>

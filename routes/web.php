@@ -157,6 +157,15 @@ Route::middleware(['auth', 'role:admin,editor'])->prefix('admin')->group(functio
         Route::put('/{news}', [NewsController::class, 'update'])->name('admin.news.update');
         Route::delete('/{news}', [NewsController::class, 'destroy'])->name('admin.news.destroy');
     });
+
+    Route::prefix('users')->group(function () {
+        Route::get('/', [AdminUserController::class, 'index'])->name('admin.users.index');
+        Route::get('/create', [AdminUserController::class, 'create'])->name('admin.users.create');
+        Route::post('/', [AdminUserController::class, 'store'])->name('admin.users.store');
+        Route::get('/{user}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
+        Route::put('/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
+        Route::delete('/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+    });
 });
 
 Route::get('/sitemap', function () {

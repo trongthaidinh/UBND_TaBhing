@@ -33,17 +33,6 @@
             </div>
 
             <nav class="py-4">
-                <div class="px-4 text-xs uppercase font-semibold mb-2 opacity-70">Tổng Quan</div>
-                <ul class="mb-4">
-                    <li>
-                        <a href="{{ route('admin.dashboard.index') }}" 
-                           class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.dashboard.index') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
-                            <i class="ri-dashboard-line mr-3 text-xl"></i>
-                            Bảng điều khiển
-                        </a>
-                    </li>
-                </ul>
-
                 <div class="px-4 text-xs uppercase font-semibold mb-2 opacity-70">Quản Lý Nội Dung</div>
                 <ul class="mb-4">
                     <li>

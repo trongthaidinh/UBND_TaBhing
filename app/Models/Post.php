@@ -2,24 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title', 
-        'slug', 
-        'excerpt', 
-        'content', 
-        'featured_image', 
-        'category_id', 
-        'author_id', 
-        'status', 
-        'published_at'
+        'title',
+        'slug',
+        'excerpt',
+        'content',
+        'featured_image',
+        'category_id',
+        'author_id',
+        'status',
+        'published_at',
+        'document'
     ];
 
     protected $dates = ['published_at', 'created_at', 'updated_at'];

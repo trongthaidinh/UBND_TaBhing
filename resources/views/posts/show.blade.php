@@ -6,15 +6,17 @@
         <div class="content-column">
             <article>
                 <div>
-                    <div class="mb-4">
-                        <span class="text-xs md:text-sm text-gray-600">
-                            Chuyên mục: {{ $post->category->name }}
-                        </span>
-                        <span class="mx-2 text-gray-300">|</span>
-                        <span class="text-xs md:text-sm text-gray-500">
-                            {{ $post->created_at->format('d/m/Y') }}
-                        </span>
-                    </div>
+                    @if ($post->category->name !== 'Trang tĩnh')
+                        <div class="mb-4">
+                            <span class="text-xs md:text-sm text-gray-600">
+                                Chuyên mục: {{ $post->category->name }}
+                            </span>
+                            <span class="mx-2 text-gray-300">|</span>
+                            <span class="text-xs md:text-sm text-gray-500">
+                                {{ $post->created_at->format('d/m/Y') }}
+                            </span>
+                        </div>
+                    @endif
                     
                     <h1 class="text-xl md:text-3xl font-bold mb-4 md:mb-6">{{ $post->title }}</h1>
                     
@@ -34,7 +36,7 @@
                 </div>
             </article>
 
-            @if($relatedPosts->count() > 0)
+            @if($relatedPosts->count() > 0 && $post->category->name !== 'Trang tĩnh')
                 <section class="mt-6 md:mt-8">
                     <h2 class="text-lg md:text-xl font-bold mb-3 md:mb-4 pb-2 border-b-2 border-primary">Bài viết liên quan</h2>
                     <div class="space-y-4 md:space-y-6">

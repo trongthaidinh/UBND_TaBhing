@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\Category;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class AdminPostController extends Controller
 {
@@ -17,21 +17,27 @@ class AdminPostController extends Controller
     {
         $query = Post::query();
 
-        // Lọc theo trạng thái
+        // Filter by status
         if ($request->has('status')) {
             $query->where('status', $request->status);
         }
 
-        // Tìm kiếm theo tiêu đề
+        // Filter by category
+        if ($request->has('category_id')) {
+            $query->where('category_id', $request->category_id);
+        }
+
+        // Search by title
         if ($request->has('search')) {
             $query->where('title', 'like', '%' . $request->search . '%');
         }
 
-        // Sắp xếp
+        // Sort
         $query->orderBy('created_at', 'desc');
 
-        // Phân trang
+        // Pagination
         $posts = $query->paginate(10);
+        $categories = Category::all();
 
         return view('admin.posts.index', [
             'posts' => $posts,
@@ -40,7 +46,8 @@ class AdminPostController extends Controller
                 'pending' => 'Chờ duyệt',
                 'published' => 'Đã xuất bản',
                 'archived' => 'Đã lưu trữ'
-            ]
+            ],
+            'categories' => $categories
         ]);
     }
 
@@ -54,17 +61,21 @@ class AdminPostController extends Controller
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
+            'excerpt' => 'nullable|string|max:255',
             'content' => 'required',
             'category_id' => 'required|exists:categories,id',
             'featured_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
+        // Add the excerpt to the validated data
+        $validatedData['excerpt'] = $request->input('excerpt');
+
         // Xác định trạng thái
         $validatedData['status'] = $request->has('is_draft') ? 'draft' : 'pending';
-        
+
         // Tạo slug
         $validatedData['slug'] = Str::slug($validatedData['title']);
-        
+
         // Thêm author_id
         $validatedData['author_id'] = Auth::id();
 
@@ -77,7 +88,8 @@ class AdminPostController extends Controller
         // Tạo bài viết
         $post = Post::create($validatedData);
 
-        return redirect()->route('admin.posts.index')
+        return redirect()
+            ->route('admin.posts.index')
             ->with('success', 'Bài viết đã được tạo thành công.');
     }
 
@@ -111,7 +123,8 @@ class AdminPostController extends Controller
         // Cập nhật bài viết
         $post->update($validatedData);
 
-        return redirect()->route('admin.posts.index')
+        return redirect()
+            ->route('admin.posts.index')
             ->with('success', 'Bài viết đã được cập nhật thành công.');
     }
 
@@ -126,7 +139,8 @@ class AdminPostController extends Controller
             'published_at' => now()
         ]);
 
-        return redirect()->route('admin.posts.index')
+        return redirect()
+            ->route('admin.posts.index')
             ->with('success', 'Bài viết đã được duyệt thành công.');
     }
 
@@ -134,7 +148,8 @@ class AdminPostController extends Controller
     {
         $post->delete();
 
-        return redirect()->route('admin.posts.index')
+        return redirect()
+            ->route('admin.posts.index')
             ->with('success', 'Bài viết đã được xóa thành công.');
     }
 }

@@ -1,18 +1,17 @@
 @extends('layouts.admin')
 
-@section('title', 'Quản lý Bài viết')
-@section('page_title', 'Danh sách Bài viết')
+@section('title', 'Quản lý Nội dung')
+@section('page_title', 'Danh sách Nội dung')
 
 @section('content')
 <div class="bg-white shadow-md rounded-lg">
     <div class="flex justify-between items-center p-6 border-b">
-        <h2 class="text-xl font-semibold text-gray-800">Danh sách Bài viết</h2>
+        <h2 class="text-xl font-semibold text-gray-800">Danh sách Nội dung</h2>
         <a href="{{ route('admin.posts.create') }}" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition">
-            Thêm Bài viết mới
+            Thêm Nội dung mới
         </a>
     </div>
 
-    <!-- Bộ lọc và tìm kiếm -->
     <div class="p-6 border-b">
         <form method="GET" action="{{ route('admin.posts.index') }}" class="flex space-x-4">
             <select name="status" class="form-select rounded-md">
@@ -23,9 +22,19 @@
                     </option>
                 @endforeach
             </select>
-            <input type="text" name="search" placeholder="Tìm kiếm bài viết" 
-                   value="{{ request('search') }}"
-                   class="form-input rounded-md flex-grow">
+
+            <select name="category_id" class="form-select rounded-md">
+                <option value="">Tất cả danh mục</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+
+            <input type="text" name="search" placeholder="Tìm kiếm nội dung" 
+                value="{{ request('search') }}"
+                class="form-input rounded-md flex-grow">
             <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition">
                 Tìm kiếm
             </button>
@@ -87,7 +96,7 @@
                                 </svg>
                             </a>
                             <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" 
-                                onsubmit="return confirm('Bạn có chắc muốn xóa bài viết này?');">
+                                onsubmit="return confirm('Bạn có chắc muốn xóa nội dung này?');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600 hover:text-red-900">

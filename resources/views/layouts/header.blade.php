@@ -55,7 +55,33 @@
                                     <h3 class="text-sm font-bold text-primary uppercase border-b pb-2">Danh Mục</h3>
                                     <div class="flex flex-col space-y-3">
                                         <a href="{{ route('home') }}" class="text-gray-700 tracking-wider {{ request()->routeIs('home') ? 'text-primary font-bold' : '' }}">Trang Chủ</a>
-                                        <a href="/gioi-thieu" class="text-gray-700 tracking-wider {{ request()->is('gioi-thieu') ? 'text-primary font-bold' : '' }}">Giới Thiệu</a>
+                                        <div x-data="{ isMediaOpen: false }">
+                                            <a href="#" @click.prevent="isMediaOpen = !isMediaOpen" 
+                                               class="text-gray-700 tracking-wider flex items-center justify-between {{ request()->is('gioi-thieu') ? 'text-primary font-bold' : '' }}">
+                                                Giới thiệu
+                                                <svg x-bind:class="{'rotate-180': isMediaOpen}" class="w-4 h-4 ml-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                                </svg>
+                                            </a>
+                                            <div x-show="isMediaOpen" x-collapse class="pl-4 space-y-3 mt-2">
+                                                <a href="{{ route('posts.show', 'gioi-thieu-chung') }}" class="block text-gray-700 tracking-wider {{ 
+                                                    request()->is('posts/gioi-thieu-chung') ? 'text-primary font-bold' : '' }}">
+                                                    Giới Thiệu chung
+                                                </a>
+                                                <a href="{{ route('categories.show', 'dan-so-dia-gioi-hanh-chinh') }}" class="block text-gray-700 tracking-wider {{ 
+                                                    request()->is('categories/dan-so-dia-gioi-hanh-chinh') ? 'text-primary font-bold' : '' }}">
+                                                    Dân Số - Địa Giới Hành Chính
+                                                </a>
+                                                <a href="{{ route('posts.show', 'co-cau-to-chuc') }}" class="block text-gray-700 tracking-wider {{ 
+                                                    request()->is('posts/co-cau-to-chuc') ? 'text-primary font-bold' : '' }}">
+                                                    Cơ Cấu Tổ Chức
+                                                </a>
+                                                <a href="{{ route('categories.show', 'cac-di-tich-dia-diem-tham-quan') }}" class="block text-gray-700 tracking-wider {{ 
+                                                    request()->is('categories/cac-di-tich-dia-diem-tham-quan') ? 'text-primary font-bold' : '' }}">
+                                                    Các Di Tích - Địa Điểm Tham Quan
+                                                </a>
+                                            </div>
+                                        </div>
                                         <a href="{{ route('categories.show', 'tin-tuc-su-kien') }}" class="text-gray-700 tracking-wider {{ 
                                             request()->is('categories/tin-tuc-su-kien') || 
                                             (isset($category) && $category->slug == 'tin-tuc-su-kien') 
@@ -180,13 +206,21 @@
                     </a>
                     <div class="absolute hidden group-hover:block bg-white shadow-lg rounded-lg py-2 px-4 z-50 top-full left-0 min-w-[300px] mt-4 
                         before:absolute before:top-[-20px] before:left-0 before:w-full before:h-[20px] before:bg-transparent">
-                        <a href="{{ route('categories.show', 'gioi-thieu-chung') }}" class="block py-2 text-gray-700 hover:text-primary {{ 
-                            request()->is('categories/gioi-thieu-chung') ? 'text-primary font-bold' : '' }}">
+                        <a href="{{ route('posts.show', 'gioi-thieu-chung') }}" class="block py-2 text-gray-700 hover:text-primary {{ 
+                            request()->is('posts/gioi-thieu-chung') ? 'text-primary font-bold' : '' }}">
                             Giới Thiệu Chung
                         </a>
                         <a href="{{ route('categories.show', 'dan-so-dia-gioi-hanh-chinh') }}" class="block py-2 text-gray-700 hover:text-primary {{ 
                             request()->is('categories/dan-so-dia-gioi-hanh-chinh') ? 'text-primary font-bold' : '' }}">
                             Dân Số - Địa Giới Hành Chính
+                        </a>
+                        <a href="{{ route('posts.show', 'co-cau-to-chuc') }}" class="block py-2 text-gray-700 hover:text-primary {{ 
+                            request()->is('posts/co-cau-to-chuc') ? 'text-primary font-bold' : '' }}">
+                            Cơ Cấu Tổ Chức
+                        </a>
+                        <a href="{{ route('categories.show', 'cac-di-tich-dia-diem-tham-quan') }}" class="block py-2 text-gray-700 hover:text-primary {{ 
+                            request()->is('categories/cac-di-tich-dia-diem-tham-quan') ? 'text-primary font-bold' : '' }}">
+                            Các Di Tích - Địa Điểm Tham Quan
                         </a>
                     </div>
                 </li>

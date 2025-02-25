@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', 'Chỉnh sửa Bài viết')
-@section('page_title', 'Chỉnh sửa Bài viết')
+@section('title', 'Chỉnh sửa Nội dung')
+@section('page_title', 'Chỉnh sửa Nội dung')
 
 @section('content')
 <div class="bg-white shadow-md rounded-lg">
     <div class="p-6 border-b">
-        <h2 class="text-xl font-semibold text-gray-800">Chỉnh sửa Bài viết</h2>
+        <h2 class="text-xl font-semibold text-gray-800">Chỉnh sửa Nội dung</h2>
     </div>
 
     <form action="{{ route('admin.posts.update', $post) }}" method="POST" enctype="multipart/form-data" class="p-6">
@@ -14,11 +14,18 @@
         @method('PUT')
         <div class="space-y-6">
             <div>
-                <label for="title" class="block text-sm font-medium text-gray-700">Tiêu đề Bài viết</label>
+                <label for="title" class="block text-sm font-medium text-gray-700">Tiêu đề Nội dung</label>
                 <input type="text" name="title" id="title" 
                     value="{{ old('title', $post->title) }}"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/50" 
                     required>
+            </div>
+
+            <div class="mb-4">
+                <label for="excerpt" class="block text-gray-700 text-sm font-bold mb-2">Mô tả ngắn</label>
+                <textarea name="excerpt" id="excerpt" rows="3"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-primary focus:ring focus:ring-primary/50"
+                    placeholder="Nhập mô tả ngắn">{{ old('excerpt', $post->excerpt) }}</textarea>
             </div>
 
             <div>
@@ -69,13 +76,13 @@
                     </label>
                 </div>
                 <p class="mt-1 text-xs text-gray-500">
-                    Nếu không chọn, bài viết sẽ được đưa vào trạng thái chờ duyệt
+                    Nếu không chọn, nội dung sẽ được đưa vào trạng thái chờ duyệt
                 </p>
             </div>  
 
             <div class="flex justify-end">
                 <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition">
-                    Cập nhật Bài viết
+                    Cập nhật Nội dung
                 </button>
             </div>
         </div>

@@ -16,6 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
     <!-- Scripts -->
+    <script src="https://cdn.tiny.cloud/1/n0qx2b928zblbwkchy4kfs2zan8lsjwh2n2w7g4fm5pao1s3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('styles')
@@ -49,7 +50,7 @@
                         <a href="{{ route('admin.posts.index') }}" 
                            class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.posts.*') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
                             <i class="ri-article-line mr-3 text-xl"></i>
-                            Bài Viết
+                            Nội dung
                         </a>
                     </li>
                     <li>

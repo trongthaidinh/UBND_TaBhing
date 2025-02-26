@@ -144,7 +144,7 @@
                                     @if(isset($latestPosts) && $latestPosts->count() > 0)
                                         @php 
                                             $firstPost = $latestPosts->first();
-                                            $remainingPosts = $latestPosts->slice(1, 5);
+                                            $remainingPosts = $latestPosts->slice(1, 3);
                                         @endphp
 
                                         <!-- First Post with Image -->
@@ -171,7 +171,7 @@
                                                 <li>
                                                     <a 
                                                         href="{{ route('posts.show', $post->slug) }}" 
-                                                        class="text-gray-800 hover:text-primary text-base line-clamp-2"
+                                                        class="text-gray-800 hover:text-primary text-sm line-clamp-2"
                                                     >
                                                         {{ $post->title }}
                                                     </a>
@@ -258,9 +258,11 @@
                                             <li class="border-b pb-2 last:border-b-0">
                                                 <a href="{{ route('posts.show', $notification->slug) }}" 
                                                    class="text-sm text-gray-800 hover:text-primary transition-colors duration-300 block">
-                                                    <span class="font-medium">{{ $notification->title }}</span>
-                                                    <span class="text-xs text-gray-500 block">
-                                                        {{ \Carbon\Carbon::parse($notification->created_at)->format('d/m/Y') }}
+                                                    <span class="font-medium">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                        </svg>
+                                                        {{ $notification->title }}
                                                     </span>
                                                 </a>
                                             </li>
@@ -268,6 +270,40 @@
                                     </ul>
                                 @else
                                     <p class="text-gray-600 text-sm">Không có thông báo mới</p>
+                                @endif
+                            </div>
+
+                            <!-- Documents Section -->
+                            <div class="bg-white mb-6">
+                                <h4 class="font-semibold mb-3 pb-2 border-b-2 border-primary text-lg">Văn Bản</h4>
+                                @if(isset($documentPosts) && $documentPosts->count() > 0)
+                                    <ul class="space-y-2">
+                                        @foreach($documentPosts as $post)
+                                            <li class="border-b pb-2 last:border-b-0">
+                                                <a href="{{ route('posts.show', $post->slug) }}" 
+                                                   class="text-sm text-gray-800 hover:text-primary transition-colors duration-300 block">
+                                                    <span class="font-medium line-clamp-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-2 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                        </svg>
+                                                        {{ $post->title }}
+                                                    </span>
+                                                    <div class="flex justify-between">
+                                                        <span class="text-xs text-gray-500 block">
+                                                            {{ \Carbon\Carbon::parse($post->published_at)->format('d/m/Y') }}
+                                                        </span>
+                                                        @if($post->document)
+                                                            <span class="text-xs text-primary hover:underline">
+                                                                Tải tài liệu
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @else
+                                    <p class="text-gray-600 text-sm">Không có văn bản mới</p>
                                 @endif
                             </div>
 

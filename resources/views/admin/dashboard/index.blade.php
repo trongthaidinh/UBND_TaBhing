@@ -5,27 +5,19 @@
 
 @push('styles')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<style>
-    .dashboard-card {
-        @apply bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1;
-    }
-    .dashboard-icon {
-        @apply text-4xl opacity-70 text-primary-light;
-    }
-</style>
 @endpush
 
 @section('content')
 <div class="space-y-6">
     {{-- Visits Overview --}}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="dashboard-card p-6">
+        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 p-6">
             <div class="flex justify-between items-center">
                 <div>
                     <h2 class="text-lg font-semibold mb-2 text-gray-700">Lượt Truy Cập Hôm Nay</h2>
                     <p class="text-3xl font-bold text-primary">{{ $todayVisits }}</p>
                 </div>
-                <i class="ri-line-chart-line dashboard-icon"></i>
+                <i class="ri-line-chart-line text-4xl opacity-70 text-primary-light"></i>
             </div>
             <div class="mt-4 text-sm text-gray-500">
                 <span class="text-green-600">
@@ -35,13 +27,13 @@
             </div>
         </div>
         
-        <div class="dashboard-card p-6">
+        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 p-6">
             <div class="flex justify-between items-center">
                 <div>
                     <h2 class="text-lg font-semibold mb-2 text-gray-700">Tổng Lượt Truy Cập</h2>
                     <p class="text-3xl font-bold text-primary">{{ $totalVisits }}</p>
                 </div>
-                <i class="ri-bar-chart-line dashboard-icon"></i>
+                <i class="ri-bar-chart-line text-4xl opacity-70 text-primary-light"></i>
             </div>
             <div class="mt-4 text-sm text-gray-500">
                 <span class="text-blue-600">
@@ -63,14 +55,14 @@
         @endphp
 
         @foreach($contentTypes as $type => $config)
-        <div class="dashboard-card p-6">
+        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 p-6">
             <a href="{{ route($config['route']) }}" class="block">
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-800">{{ $config['title'] }}</h3>
                         <p class="text-3xl font-bold text-primary">{{ $contentStats[$type]['total'] }}</p>
                     </div>
-                    <i class="{{ $config['icon'] }} dashboard-icon"></i>
+                    <i class="{{ $config['icon'] }} text-4xl opacity-70 text-primary-light"></i>
                 </div>
                 <div class="mt-4 text-sm text-gray-500">
                     <span class="text-green-600">
@@ -86,13 +78,13 @@
     {{-- Charts Section --}}
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {{-- Content Distribution Chart --}}
-        <div class="dashboard-card p-6">
+        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 p-6">
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Phân Bổ Nội Dung</h3>
             <canvas id="contentDistributionChart" class="w-full h-64"></canvas>
         </div>
 
         {{-- Monthly Content Trend --}}
-        <div class="dashboard-card p-6">
+        <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 p-6">
             <h3 class="text-lg font-semibold text-gray-800 mb-4">Xu Hướng Nội Dung Năm {{ now()->year }}</h3>
             <canvas id="monthlyContentTrendChart" class="w-full h-64"></canvas>
         </div>

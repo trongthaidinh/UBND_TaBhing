@@ -45,7 +45,7 @@
             <div>
                 <label for="content" class="block text-sm font-medium text-gray-700 mb-1">Nội dung</label>
                 <textarea name="content" id="content" rows="10"
-                    class="hidden">{{ old('content', $post->content) }}</textarea>
+                    class="">{{ old('content', $post->content) }}</textarea>
             </div>
 
             <div>
@@ -96,9 +96,44 @@
 <script>
     tinymce.init({
         selector: '#content',
-        plugins: 'lists link image preview',
-        toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright | bullist numlist | link image',
-        height: 300
+        setup: function(editor) {
+            editor.on('init', function() {
+                console.log('TinyMCE initialized');
+            });
+        },
+        plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table wordcount spacing lineheight',
+        toolbar: 'undo redo | styles | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | ' +
+                 'bullist numlist outdent indent | link image media | ' +
+                 'forecolor backcolor removeformat | lineheight | ' +
+                 'table tabledelete | code fullscreen preview',
+        toolbar_mode: 'sliding',
+        height: 500,
+        min_height: 300,
+        max_height: 700,
+        menubar: true,
+        statusbar: true,
+        content_style: 'body { line-height: 1.5; }',
+        lineheight_formats: '1 1.15 1.5 2 2.5 3',
+        style_formats: [
+            { title: 'Headings', items: [
+                { title: 'Heading 1', format: 'h1' },
+                { title: 'Heading 2', format: 'h2' },
+                { title: 'Heading 3', format: 'h3' },
+                { title: 'Heading 4', format: 'h4' }
+            ]},
+            { title: 'Inline', items: [
+                { title: 'Bold', format: 'bold' },
+                { title: 'Italic', format: 'italic' },
+                { title: 'Underline', format: 'underline' },
+                { title: 'Strikethrough', format: 'strikethrough' }
+            ]},
+            { title: 'Alignment', items: [
+                { title: 'Left', format: 'alignleft' },
+                { title: 'Center', format: 'aligncenter' },
+                { title: 'Right', format: 'alignright' },
+                { title: 'Justify', format: 'alignjustify' }
+            ]}
+        ]
     });
 </script>
 

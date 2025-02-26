@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SystemConfiguration;
-use App\Models\HomepageBlock;
-use App\Models\Post;
-use App\Models\Category;
-use App\Models\Video;
-use App\Models\PhotoLibrary;
 use App\Models\AccessStatistic;
+use App\Models\Category;
+use App\Models\HomepageBlock;
+use App\Models\PhotoLibrary;
+use App\Models\Post;
+use App\Models\SystemConfiguration;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -62,14 +62,15 @@ class HomeController extends Controller
 
         // Fetch categories with their posts
         $categories = Category::where('show_on_home', true)
-            ->with(['posts' => function($query) {
-                $query->where('status', 'published')
-                      ->latest()
-                      ->take(3);
+            ->with(['posts' => function ($query) {
+                $query
+                    ->where('status', 'published')
+                    ->latest()
+                    ->take(3);
             }])
             ->get()
             // Filter out categories with no posts
-            ->filter(function($category) {
+            ->filter(function ($category) {
                 return $category->posts->count() > 0;
             });
 
@@ -78,9 +79,9 @@ class HomeController extends Controller
         $photoLibrary = PhotoLibrary::published()->latest()->take(6)->get();
 
         // Pass data to the view
-        return view('home', [   
+        return view('home', [
             'sliderBlocks' => $sliderBlocks,
-            'newsLatestBlocks' => $newsLatestBlocks,  
+            'newsLatestBlocks' => $newsLatestBlocks,
             'latestPosts' => $latestPosts,
             'categories' => $categories,
             'videos' => $videos,

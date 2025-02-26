@@ -171,7 +171,7 @@
                                                 <li>
                                                     <a 
                                                         href="{{ route('posts.show', $post->slug) }}" 
-                                                        class="text-gray-800 hover:text-primary text-base"
+                                                        class="text-gray-800 hover:text-primary text-base line-clamp-2"
                                                     >
                                                         {{ $post->title }}
                                                     </a>

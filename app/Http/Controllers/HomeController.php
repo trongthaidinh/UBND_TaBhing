@@ -75,7 +75,7 @@ class HomeController extends Controller
 
         // Fetch videos and photo library
         $videos = Video::published()->latest()->take(3)->get();
-        $photoLibrary = PhotoLibrary::published()->latest()->take(4)->get();
+        $photoLibrary = PhotoLibrary::published()->latest()->take(6)->get();
 
         // Pass data to the view
         return view('home', [   

@@ -54,6 +54,24 @@
 
             
 
+            <!-- Banners Above Categories Section -->
+            @php
+                $topBanner = $banners->where('display_order', 1)->first();
+            @endphp
+            @if($topBanner && isset($topBanner->configuration['image_path']) && $topBanner->configuration['image_path'])
+                <section class="top-banner mb-6">
+                    <div class="banner-item">
+                        <a href="{{ $topBanner->configuration['link_url'] ?? '#' }}" class="block">
+                            <img 
+                                src="{{ asset($topBanner->configuration['image_path']) }}" 
+                                alt="{{ $topBanner->name }}" 
+                                class="w-full h-auto object-cover rounded-lg shadow-md"
+                            >
+                        </a>
+                    </div>
+                </section>
+            @endif
+
             <!-- Categories with Posts Section -->
             <section class="category-posts space-y-8 mb-6">
                 @forelse($categories as $category)
@@ -134,23 +152,22 @@
                 @endforelse
             </section>
 
-            <!-- Propaganda Banner -->
-            @if($banner)
-            <section class="propaganda-banner mb-8">
-                @php
-                    // Check if configuration is a string (JSON) or already an array
-                    $config = is_string($banner->configuration) 
-                        ? json_decode($banner->configuration, true) 
-                        : $banner->configuration;
-                @endphp
-                <a href="{{ $config['link_url'] ?? '#' }}" class="block">
-                    <img 
-                        src="{{ asset($config['image_path'] ?? '') }}" 
-                        alt="{{ $banner->name }}" 
-                        class="w-full h-auto object-cover rounded-lg shadow-md hover:opacity-95 transition-opacity"
-                    >
-                </a>
-            </section>
+            <!-- Banners Below Categories Section -->
+            @php
+                $bottomBanner = $banners->where('display_order', 2)->first();
+            @endphp
+            @if($bottomBanner && isset($bottomBanner->configuration['image_path']) && $bottomBanner->configuration['image_path'])
+                <section class="bottom-banner my-6">
+                    <div class="banner-item">
+                        <a href="{{ $bottomBanner->configuration['link_url'] ?? '#' }}" class="block">
+                            <img 
+                                src="{{ asset($bottomBanner->configuration['image_path']) }}" 
+                                alt="{{ $bottomBanner->name }}" 
+                                class="w-full h-auto object-cover rounded-lg shadow-md"
+                            >
+                        </a>
+                    </div>
+                </section>
             @endif
 
             <!-- Video Block Section -->

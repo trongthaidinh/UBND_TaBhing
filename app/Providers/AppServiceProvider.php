@@ -54,9 +54,22 @@ class AppServiceProvider extends ServiceProvider
             // Fetch visitor statistics
             $visitorStats = AccessStatistic::getStatistics();
 
+            // Fetch document posts
+            $documentCategory = Category::where('slug', 'van-ban')->first();
+            $documentPosts = collect();
+
+            if ($documentCategory) {
+                $documentPosts = Post::where('category_id', $documentCategory->id)
+                    ->where('status', 'published')
+                    ->orderBy('published_at', 'desc')
+                    ->take(5)
+                    ->get();
+            }
+
             // Share data with the view
             $view->with([
                 'notifications' => $notifications,
+                'documentPosts' => $documentPosts,
                 'todayVisits' => $visitorStats['today_visits'],
                 'totalVisits' => $visitorStats['total_visits']
             ]);

@@ -54,11 +54,11 @@ class HomeController extends Controller
             ->where('is_active', true)
             ->first();
 
-        // Fetch active banner
-        $banner = HomepageBlock::where('type', 'banner')
+        // Fetch active banners with specific display orders
+        $banners = HomepageBlock::where('type', 'banner')
             ->where('is_active', true)
             ->orderBy('display_order')
-            ->first();
+            ->get();
 
         // Fetch categories with their posts
         $categories = Category::where('show_on_home', true)
@@ -86,7 +86,7 @@ class HomeController extends Controller
             'categories' => $categories,
             'videos' => $videos,
             'photoLibrary' => $photoLibrary,
-            'banner' => $banner,
+            'banners' => $banners,
             'featuredPosts' => $featuredPosts
         ]);
     }

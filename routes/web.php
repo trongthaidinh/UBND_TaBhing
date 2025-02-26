@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\AdminBannerController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminExternalLinkController;
@@ -165,6 +166,15 @@ Route::middleware(['auth', 'role:admin,editor'])->prefix('admin')->group(functio
         Route::get('/{user}/edit', [AdminUserController::class, 'edit'])->name('admin.users.edit');
         Route::put('/{user}', [AdminUserController::class, 'update'])->name('admin.users.update');
         Route::delete('/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+    });
+
+    Route::prefix('banner')->group(function () {
+        Route::get('/', [AdminBannerController::class, 'index'])->name('admin.banner.index');
+        Route::get('/create', [AdminBannerController::class, 'create'])->name('admin.banner.create');
+        Route::post('/', [AdminBannerController::class, 'store'])->name('admin.banner.store');
+        Route::get('/{banner}/edit', [AdminBannerController::class, 'edit'])->name('admin.banner.edit');
+        Route::put('/{banner}', [AdminBannerController::class, 'update'])->name('admin.banner.update');
+        Route::delete('/{banner}', [AdminBannerController::class, 'destroy'])->name('admin.banner.destroy');
     });
 });
 

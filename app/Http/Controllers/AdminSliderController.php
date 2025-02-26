@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\HomepageBlock;
 use Illuminate\Http\Request;
 
-class AdminHomePageBlockController extends Controller
+class AdminSliderController extends Controller
 {
     public function index()
     {
@@ -49,13 +49,6 @@ class AdminHomePageBlockController extends Controller
                 // Attempt to decode JSON, if it fails, use the original string
                 $parsedValue = json_decode($value, true);
                 $configuration[$key] = $parsedValue === null ? $value : $parsedValue;
-
-                // Ensure post_ids is always an array
-                if ($key === 'post_ids') {
-                    $configuration[$key] = is_array($configuration[$key])
-                        ? $configuration[$key]
-                        : explode(',', $configuration[$key]);
-                }
             }
         }
 
@@ -103,13 +96,6 @@ class AdminHomePageBlockController extends Controller
                 // Attempt to decode JSON, if it fails, use the original string
                 $parsedValue = json_decode($value, true);
                 $configuration[$key] = $parsedValue === null ? $value : $parsedValue;
-
-                // Ensure post_ids is always an array
-                if ($key === 'post_ids') {
-                    $configuration[$key] = is_array($configuration[$key])
-                        ? $configuration[$key]
-                        : explode(',', $configuration[$key]);
-                }
             }
         }
 
@@ -120,14 +106,5 @@ class AdminHomePageBlockController extends Controller
         return redirect()
             ->route('admin.homepage-blocks.index')
             ->with('success', 'Cập nhật khối trang chủ thành công.');
-    }
-
-    public function destroy(HomepageBlock $homepageBlock)
-    {
-        $homepageBlock->delete();
-
-        return redirect()
-            ->route('admin.homepage-blocks.index')
-            ->with('success', 'Xóa khối trang chủ thành công.');
     }
 }

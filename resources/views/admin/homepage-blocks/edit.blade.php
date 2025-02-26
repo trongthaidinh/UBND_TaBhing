@@ -1,157 +1,131 @@
 @extends('layouts.admin')
 
-@section('title', 'Sửa Khối Trang Chủ')
-@section('page_title', 'Sửa Khối Trang Chủ')
-
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">Chỉnh Sửa Khối Trang Chủ</h1>
-
-    @if($errors->any())
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form action="{{ route('admin.homepage-blocks.update', $homepageBlock) }}" method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        @csrf
-        @method('PUT')
-        <div class="mb-4">
-            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Tên Khối</label>
-            <input type="text" name="name" id="name" value="{{ old('name', $homepageBlock->name) }}" required 
-                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-        </div>
-
-        <div class="mb-4">
-            <label for="type" class="block text-gray-700 text-sm font-bold mb-2">Loại Khối</label>
-            <select name="type" id="blockType" required 
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                <option value="slider" {{ $homepageBlock->type == 'slider' ? 'selected' : '' }}>Slider</option>
-                <option value="news_lastest" {{ $homepageBlock->type == 'news_lastest' ? 'selected' : '' }}>Tin Tức Mới Nhất</option>
-                <option value="banner" {{ $homepageBlock->type == 'banner' ? 'selected' : '' }}>Banner</option>
-            </select>
-        </div>
-
-        <div class="mb-4">
-            <label for="display_order" class="block text-gray-700 text-sm font-bold mb-2">Thứ Tự Hiển Thị</label>
-            <input type="number" name="display_order" id="display_order" value="{{ old('display_order', $homepageBlock->display_order) }}" required 
-                   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-        </div>
-
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">
-                <input type="checkbox" name="is_active" value="1" {{ old('is_active', $homepageBlock->is_active) ? 'checked' : '' }}>
-                Hoạt Động
-            </label>
-        </div>
-
-        <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Cấu Hình</label>
-            <div id="configContainer" class="space-y-2">
-                @php
-                    // Ensure $configuration is an array
-                    $configuration = is_string($homepageBlock->configuration) 
-                        ? json_decode($homepageBlock->configuration, true) 
-                        : ($homepageBlock->configuration ?? []);
-                @endphp
-                @foreach($configuration as $key => $value)
-                    <div class="flex items-center space-x-2 config-item">
-                        <input type="text" name="configuration[keys][]" value="{{ $key }}" placeholder="Khóa" 
-                            class="w-1/3 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <input type="text" name="configuration[values][]" value="{{ is_array($value) ? json_encode($value) : $value }}" placeholder="Giá trị" 
-                            class="w-1/2 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <button type="button" class="remove-config-item text-red-500 hover:text-red-700 px-2">✖</button>
-                    </div>
-                @endforeach
+<div class="container mx-auto">
+    <div class="bg-white shadow-md rounded-lg p-6">
+        @if($homepageBlock->type !== 'slider')
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                Khối này không phải là slider. Không thể chỉnh sửa.
             </div>
-            <button type="button" id="addConfigItem" class="mt-2 bg-primary-500 text-white px-4 py-2 rounded hover:bg-primary-600 transition">
-                + Thêm Thuộc Tính
-            </button>
-        </div>
+        @else
+            @php
+                // Safely parse configuration
+                $configuration = is_string($homepageBlock->configuration) 
+                    ? json_decode($homepageBlock->configuration, true) 
+                    : ($homepageBlock->configuration ?? []);
+                
+                $selectedPostIds = is_array($configuration) && isset($configuration['post_ids']) 
+                    ? $configuration['post_ids'] 
+                    : [];
 
-        <div class="flex items-center justify-between">
-            <button type="submit" class="bg-primary-500 text-white px-4 py-2 rounded hover:bg-primary-600 transition">
-                Cập Nhật Khối
-            </button>
-            <a href="{{ route('admin.homepage-blocks.index') }}" class="text-gray-600 hover:text-gray-800">
-                Hủy
-            </a>
-        </div>
-    </form>
+                // Ensure $selectedPostIds is an array
+                $selectedPostIds = is_array($selectedPostIds) ? $selectedPostIds : [];
+            @endphp
+
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">
+                Chỉnh Sửa Slider
+            </h1>
+
+            <form action="{{ route('admin.homepage-blocks.update', $homepageBlock) }}" method="POST" id="sliderForm">
+                @csrf
+                @method('PUT')
+
+                <input type="hidden" name="type" value="slider">
+                <input type="hidden" name="configuration[keys][]" value="type">
+                <input type="hidden" name="configuration[values][]" value="post_slider">
+                <input type="hidden" name="configuration[keys][]" value="post_ids">
+
+                <div class="mb-4">
+                    <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Tên Slider</label>
+                    <input type="text" name="name" id="name" 
+                        value="{{ old('name', $homepageBlock->name ?? 'Slider Trang Chủ') }}" 
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    @error('name')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label for="display_order" class="block text-gray-700 text-sm font-bold mb-2">Thứ Tự Hiển Thị</label>
+                    <input type="number" name="display_order" id="display_order" 
+                        value="{{ old('display_order', $homepageBlock->display_order ?? 1) }}" 
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    @error('display_order')
+                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">
+                        <input type="checkbox" name="is_active" value="1" 
+                            {{ old('is_active', $homepageBlock->is_active ?? true) ? 'checked' : '' }}>
+                        Hoạt Động
+                    </label>
+                </div>
+
+                <div class="mb-4">
+                    <label for="postSelect" class="block text-gray-700 text-sm font-bold mb-2">
+                        Chọn Bài Viết Slider
+                    </label>
+                    <select name="post_ids[]" id="postSelect" multiple="multiple" 
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        @foreach(App\Models\Post::where('status', 'published')->orderBy('published_at', 'desc')->get() as $post)
+                            <option value="{{ $post->id }}" 
+                                {{ in_array((string)$post->id, array_map('strval', $selectedPostIds)) ? 'selected' : '' }}>
+                                {{ $post->title }} ({{ $post->category->name }}) - {{ $post->published_at->format('d/m/Y') }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <p class="text-xs text-gray-500 mt-1">
+                        Chọn các bài viết để hiển thị trong slider. Tối đa 5 bài viết được khuyến nghị.
+                    </p>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <button type="submit" 
+                        class="bg-primary hover:bg-primary-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Cập Nhật Slider
+                    </button>
+                    <a href="{{ route('admin.homepage-blocks.index') }}" 
+                       class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                        Quay lại
+                    </a>
+                </div>
+            </form>
+        @endif
+    </div>
 </div>
+@endsection
+
+@push('styles')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
 
 @push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const configContainer = document.getElementById('configContainer');
-    const addConfigItemBtn = document.getElementById('addConfigItem');
-    const blockTypeSelect = document.getElementById('blockType');
-
-    // Function to create a new configuration item row
-    function createConfigItemRow(key = '', value = '') {
-        const row = document.createElement('div');
-        row.className = 'flex items-center space-x-2 config-item';
-        row.innerHTML = `
-            <input type="text" name="configuration[keys][]" value="${key}" placeholder="Khóa" 
-                   class="w-1/3 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            <input type="text" name="configuration[values][]" value="${value}" placeholder="Giá trị" 
-                   class="w-1/2 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            <button type="button" class="remove-config-item text-red-500 hover:text-red-700 px-2">✖</button>
-        `;
-
-        // Add remove functionality
-        row.querySelector('.remove-config-item').addEventListener('click', function() {
-            row.remove();
-        });
-
-        return row;
-    }
-
-    // Add new configuration item
-    addConfigItemBtn.addEventListener('click', function() {
-        configContainer.appendChild(createConfigItemRow());
+    $('#postSelect').select2({
+        placeholder: "Chọn bài viết cho slider",
+        allowClear: true,
+        width: '100%',
+        maximumSelectionLength: 5
     });
 
-    // Remove configuration item (event delegation)
-    configContainer.addEventListener('click', function(e) {
-        if (e.target.classList.contains('remove-config-item')) {
-            e.target.closest('.config-item').remove();
-        }
-    });
+    $('#sliderForm').on('submit', function(e) {
+        var selectedPosts = $('#postSelect').val() || [];
+        
+        $(this).find('input[name="configuration[keys][]"][value="post_ids"]').nextAll('input[name="configuration[values][]"]').remove();
+        
+        $('<input>')
+            .attr('type', 'hidden')
+            .attr('name', 'configuration[values][]')
+            .val(selectedPosts.join(','))
+            .insertAfter($(e.target).find('input[name="configuration[keys][]"][value="post_ids"]'));
 
-    // Default configurations based on block type
-    const defaultConfigs = {
-        slider: [
-            ['type', 'post_slider'],
-            ['post_ids', '[]']
-        ],
-        news: [
-            ['items_to_show', '6'],
-            ['category_filter', '']
-        ],
-        banner: [
-            ['image_path', ''],
-            ['description', ''],
-            ['link_url', '']
-        ]
-    };
-
-    // Update configuration when block type changes
-    blockTypeSelect.addEventListener('change', function() {
-        // Clear existing configuration
-        configContainer.innerHTML = '';
-
-        // Add default configuration for selected type
-        const configs = defaultConfigs[this.value] || [];
-        configs.forEach(([key, value]) => {
-            configContainer.appendChild(createConfigItemRow(key, value));
-        });
+        console.log('Selected Post IDs:', selectedPosts);
     });
 });
 </script>
 @endpush
-@endsection

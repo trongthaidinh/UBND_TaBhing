@@ -25,7 +25,7 @@
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
         <aside class="w-64 bg-primary text-white shadow-lg z-50 transition-all duration-300 ease-in-out relative">
-            <div class="flex flex-col items-center justify-center py-4 border-b border-white/10">
+            <div class="flex flex-col items-center justify-center py-2 border-b border-white/10">
                 <img src="{{ asset('images/quochuy.png') }}" alt="Logo" class="h-10 mr-2">
                 <h1 class="text-xl font-bold flex items-center py-2">
                     UBND XÃ ĐẮC TÔI
@@ -78,7 +78,14 @@
                         <a href="{{ route('admin.homepage-blocks.index') }}" 
                            class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.homepage-blocks.*') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
                             <i class="ri-layout-grid-line mr-3 text-xl"></i>
-                            Khối Trang Chủ
+                            Slider
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.banner.index') }}" 
+                           class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.banner.*') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
+                            <i class="ri-building-3-line mr-3 text-xl"></i>
+                            Banner
                         </a>
                     </li>
                     <li>

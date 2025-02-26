@@ -63,6 +63,13 @@
                             Video
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.rss-feeds.index') }}" 
+                           class="flex items-center px-6 py-3 hover:bg-white/10 {{ request()->routeIs('admin.rss-feeds.*') ? 'bg-white/20 text-white font-semibold' : 'text-white/80' }}">
+                           <i class="ri-link mr-3 text-xl"></i>
+                            RSS URL
+                        </a>
+                    </li>
                 </ul>
 
                 <div class="px-4 text-xs uppercase font-semibold mb-2 opacity-70">Cấu Hình Trang</div>

@@ -76,9 +76,6 @@
                                                                     {{ $post->title }}
                                                                 </a>
                                                             </h2>
-                                                            <p class="text-sm md:text-lg mb-2 md:mb-4 line-clamp-2 hidden md:block">
-                                                                {{ $post->excerpt }}
-                                                            </p>
                                                             <a 
                                                                 href="{{ route('posts.show', $post->slug) }}" 
                                                                 class="inline-block px-4 py-2 md:px-6 md:py-3 bg-primary text-white rounded-lg hover:bg-blue-700 transition text-sm md:text-base"

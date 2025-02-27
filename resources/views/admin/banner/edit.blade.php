@@ -33,7 +33,36 @@
                 @enderror
             </div>
 
-            <!-- ... other fields similar to create view ... -->
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Thứ tự hiển thị <span class="text-red-500">*</span>
+                </label>
+                <input 
+                    type="number" 
+                    name="display_order" 
+                    value="{{ old('display_order', $banner->display_order ?? 0) }}" 
+                    required 
+                    class="form-input w-full rounded-md @error('display_order') border-red-500 @enderror"
+                >
+                @error('display_order')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Đường liên kết
+                </label>
+                <input 
+                    type="url" 
+                    name="link_url" 
+                    value="{{ old('link_url', $banner->configuration['link_url'] ?? '') }}" 
+                    class="form-input w-full rounded-md @error('link_url') border-red-500 @enderror"
+                >
+                @error('link_url')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
             <div class="form-group">
                 <label class="block text-sm font-medium text-gray-700 mb-2">

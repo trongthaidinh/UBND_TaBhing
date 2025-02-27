@@ -138,27 +138,6 @@ Route::middleware(['auth', 'role:admin,editor'])->prefix('admin')->group(functio
         Route::delete('/{externalLink}', [AdminExternalLinkController::class, 'destroy'])->name('admin.external-links.destroy');
     });
 
-    Route::prefix('rss-feeds')->group(function () {
-        Route::get('/', [RssFeedController::class, 'index'])->name('admin.rss-feeds.index');
-        Route::get('/create', [RssFeedController::class, 'create'])->name('admin.rss-feeds.create');
-        Route::post('/', [RssFeedController::class, 'store'])->name('admin.rss-feeds.store');
-        Route::get('/{rssFeed}/edit', [RssFeedController::class, 'edit'])->name('admin.rss-feeds.edit');
-        Route::put('/{rssFeed}', [RssFeedController::class, 'update'])->name('admin.rss-feeds.update');
-        Route::delete('/{rssFeed}', [RssFeedController::class, 'destroy'])->name('admin.rss-feeds.destroy');
-    });
-
-    Route::get('rss-feeds/{rssFeed}/import', [RssFeedController::class, 'import'])
-        ->name('admin.rss-feeds.import');
-
-    Route::prefix('news')->group(function () {
-        Route::get('/', [NewsController::class, 'admin_index'])->name('admin.news.index');
-        Route::get('/create', [NewsController::class, 'create'])->name('admin.news.create');
-        Route::post('/', [NewsController::class, 'store'])->name('admin.news.store');
-        Route::get('/{news}/edit', [NewsController::class, 'edit'])->name('admin.news.edit');
-        Route::put('/{news}', [NewsController::class, 'update'])->name('admin.news.update');
-        Route::delete('/{news}', [NewsController::class, 'destroy'])->name('admin.news.destroy');
-    });
-
     Route::prefix('users')->group(function () {
         Route::get('/', [AdminUserController::class, 'index'])->name('admin.users.index');
         Route::get('/create', [AdminUserController::class, 'create'])->name('admin.users.create');
@@ -184,25 +163,6 @@ Route::get('/sitemap', function () {
 
 // Add Search Route
 Route::get('/search', [SearchController::class, 'index'])->name('search');
-
-// Services Routes
-Route::prefix('services')->group(function () {
-    Route::get('/', [ServicesController::class, 'index'])->name('services.index');
-    Route::get('/online', [ServicesController::class, 'online'])->name('services.online');
-});
-
-// Profile Lookup Routes
-Route::prefix('profile')->group(function () {
-    Route::get('/lookup', [ProfileLookupController::class, 'index'])->name('profile.lookup');
-});
-
-// Business Support Routes
-Route::prefix('business')->group(function () {
-    Route::get('/support', [BusinessSupportController::class, 'index'])->name('business.support');
-});
-
-// News Routes
-Route::get('/tin-tuc/{slug}', [NewsController::class, 'detail'])->name('news.detail');
 
 // Include authentication routes
 require __DIR__ . '/auth.php';

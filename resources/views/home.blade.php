@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-[1200px]">
-    <div class="grid grid-cols-1 lg:grid-cols-[840px_320px] gap-0 lg:gap-10">
+<div class="">
         <div class="content-column">
             <!-- Quick Access Buttons -->
-            <section class="quick-access-buttons grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <section class="quick-access-buttons grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                 <a href="https://dichvucong.quangnam.gov.vn/" target="_blank" class="block">
                     <img src="{{ asset('images/dvc-truc-tuyen.png') }}" alt="Dịch Vụ Công Trực Tuyến" class="w-full h-auto rounded-lg shadow-md hover:opacity-80 transition-opacity">
                 </a>
@@ -16,43 +15,6 @@
                     <img src="{{ asset('images/tra-cuu-hso.jpg') }}" alt="Tra Cứu Hồ Sơ" class="w-full h-auto rounded-lg shadow-md hover:opacity-80 transition-opacity">
                 </a>
             </section>
-
-            <!-- Latest Posts Section -->
-            <!-- <section class="latest-posts mb-8">
-                <h2 class="text-lg sm:text-xl font-bold mb-4 pb-2 border-b-2 border-primary">Tin tức mới nhất</h2>
-                <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                    @forelse($latestPosts as $post)
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        @if($post->featured_image)
-                            <img src="{{ asset('storage/' . $post->featured_image) }}" 
-                                 alt="{{ $post->title }}" 
-                                 class="w-full h-36 object-cover">
-                        @endif
-                        <div class="p-4">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-[8px] lg:text-sm text-gray-600">
-                                    {{ $post->category ? $post->category->name : 'Không phân loại' }}
-                                </span>
-                                <span class="text-[8px] lg:text-sm text-gray-500">
-                                    {{ $post->created_at->format('d/m/Y') }}
-                                </span>
-                            </div>
-                            <h3 class="font-bold text-[10px] lg:text-sm mb-2 line-clamp-2">{{ $post->title }}</h3>
-                            <a href="{{ route('posts.show', $post->slug) }}" 
-                               class="text-primary hover:underline text-[8px] lg:text-sm">
-                                Đọc thêm
-                            </a>
-                        </div>
-                    </div>
-                    @empty
-                    <div class="col-span-3 text-center text-gray-600">
-                        Chưa có bài viết nào
-                    </div>
-                    @endforelse
-                </div>
-            </section> -->
-
-            
 
             <!-- Banners Above Categories Section -->
             @php
@@ -171,7 +133,7 @@
             @endif
 
             <!-- Video Block Section -->
-            <section class="video-block mb-8">
+            <section class="video-block mb-6">
                 <h2 class="text-lg sm:text-xl font-bold mb-4 pb-2 border-b-2 border-primary">Video</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     @forelse($videos as $video)
@@ -202,7 +164,7 @@
             </section>  
 
             <!-- Photo Library Section -->
-            <section class="photo-library mb-8">
+            <section class="photo-library mb-6">
                 <h2 class="text-lg sm:text-xl font-bold mb-4 pb-2 border-b-2 border-primary">Thư Viện Ảnh</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     @forelse($photoLibrary as $photo)
@@ -221,6 +183,5 @@
                 </div>
             </section>
         </div>
-    </div>
 </div>
 @endsection

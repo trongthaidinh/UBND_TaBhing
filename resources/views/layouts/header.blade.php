@@ -304,8 +304,8 @@
     </nav>
 
         <!-- Header with date, scrolling news, and weather -->
-        <div class="bg-white">
-        <div class="bg-[#f9f9f9] p-4 w-full max-w-[1200px] mx-auto">
+        <div class="bg-[#f9f9f9]">
+        <div class="p-2 w-full max-w-[1200px] mx-auto">
             @php
                 $thongBaoCategory = \App\Models\Category::where('slug', 'thong-bao')->first();
                 $thongBaoPosts = $thongBaoCategory ? $thongBaoCategory->posts()->take(5)->get() : [];

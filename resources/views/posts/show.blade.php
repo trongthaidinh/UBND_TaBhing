@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="max-w-[1200px] mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-[840px_320px] gap-0 md:gap-10">
         <div class="content-column">
             <article>
                 <div>
@@ -89,6 +88,5 @@
         <div class="sidebar-column hidden lg:block">
             <!-- Sidebar content -->
         </div>
-    </div>
 </div>
 @endsection

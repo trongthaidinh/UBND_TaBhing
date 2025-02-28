@@ -347,7 +347,7 @@
                                     <h4 class="font-semibold mb-3 pb-2 border-b-2 border-primary text-lg">Bản đồ chỉ dẫn</h4>
                                     <div class="bg-gray-100 rounded-lg overflow-hidden shadow-inner">
                                         <iframe 
-                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3842.878918778998!2d107.50666457459099!3d15.598116751878791!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316a6fbbf8e59d1d%3A0xac5f866b06c02148!2zVUJORCB4w6MgxJDhuq9jIFTDtGk!5e0!3m2!1sen!2s!4v1739955703919!5m2!1sen!2s" 
+                                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3841.6855976687193!2d107.70058597459223!3d15.661721950219363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x316a0ce3658dbb1b%3A0x5b1db9046c6ac799!2sT%C3%A0%20B&#39;Hing%20Commune%20People&#39;s%20Committee!5e0!3m2!1sen!2s!4v1740706359337!5m2!1sen!2s" 
                                             width="100%" 
                                             height="250" 
                                             style="border:0;" 

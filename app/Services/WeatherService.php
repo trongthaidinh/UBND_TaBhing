@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 class WeatherService
 {
@@ -18,10 +18,10 @@ class WeatherService
             'longitude' => 107.7167,
             'full_name' => 'Nam Giang, Quảng Nam'
         ],
-        'Đắc Tôi' => [
+        'Chà Vàl' => [
             'latitude' => 15.4167,
             'longitude' => 107.7167,
-            'full_name' => 'Đắc Tôi, Nam Giang, Quảng Nam'
+            'full_name' => 'Chà Vàl, Nam Giang, Quảng Nam'
         ],
         // Add more provinces here
     ];
@@ -29,7 +29,7 @@ class WeatherService
     public function __construct($province = 'Nam Giang')
     {
         $this->setProvince($province);
-        $this->cacheTime = 30; // Cache for 30 minutes
+        $this->cacheTime = 30;  // Cache for 30 minutes
     }
 
     public function setProvince($province)
@@ -37,7 +37,7 @@ class WeatherService
         // Validate and set province
         $province = ucwords(strtolower($province));
         if (!isset($this->provinces[$province])) {
-            $province = 'Nam Giang'; // Default if not found
+            $province = 'Nam Giang';  // Default if not found
         }
 
         $selectedProvince = $this->provinces[$province];
@@ -64,7 +64,7 @@ class WeatherService
             try {
                 $response = Http::withOptions([
                     'verify' => false  // Disable SSL verification
-                ])->get("https://api.open-meteo.com/v1/forecast", [
+                ])->get('https://api.open-meteo.com/v1/forecast', [
                     'latitude' => $this->coordinates['latitude'],
                     'longitude' => $this->coordinates['longitude'],
                     'current_weather' => true,

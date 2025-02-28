@@ -28,7 +28,7 @@
             <div class="flex flex-col items-center justify-center py-2 border-b border-white/10">
                 <img src="{{ asset('images/quochuy.png') }}" alt="Logo" class="h-10 mr-2">
                 <h1 class="text-xl font-bold flex items-center py-2">
-                    UBND XÃ ĐẮC TÔI
+                    UBND XÃ CHÀ VÀL
                 </h1>
             </div>
 

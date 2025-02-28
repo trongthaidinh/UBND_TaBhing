@@ -18,10 +18,10 @@ class WeatherService
             'longitude' => 107.7167,
             'full_name' => 'Nam Giang, Quảng Nam'
         ],
-        'Chà Vàl' => [
+        'Tà Bhing' => [
             'latitude' => 15.4167,
             'longitude' => 107.7167,
-            'full_name' => 'Chà Vàl, Nam Giang, Quảng Nam'
+            'full_name' => 'Tà Bhing, Nam Giang, Quảng Nam'
         ],
         // Add more provinces here
     ];

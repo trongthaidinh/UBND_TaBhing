@@ -11,7 +11,7 @@
                         Ủy Ban Nhân Dân Huyện Nam Giang
                     </div>
                     <div class="text-[12px] md:text-3xl font-bold text-white uppercase font-merriweather leading-tight">
-                        Trang Thông Tin Điện Tử Xã Chà Vàl
+                        Trang Thông Tin Điện Tử Xã Tà Bhing
                     </div>
                 </div>
                 
@@ -40,7 +40,7 @@
                                         Ủy Ban Nhân Dân Huyện Nam Giang
                                     </div>
                                     <div class="text-[12px] font-bold text-primary uppercase font-merriweather leading-tight">
-                                        Trang Thông Tin Điện Tử Xã Chà Vàl
+                                        Trang Thông Tin Điện Tử Xã Tà Bhing
                                     </div>
                                 </div>
                                 <button @click="mobileMenuOpen = false" class="text-gray-600">

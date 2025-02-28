@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use App\Models\HomepageBlock;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class HomepageBlockSeeder extends Seeder
 {
@@ -64,13 +64,13 @@ class HomepageBlockSeeder extends Seeder
                 ])
             ],
             [
-                'name' => 'Tuyên truyền Xã Đắc Tôi',
+                'name' => 'Tuyên truyền Xã Tà Bhing',
                 'type' => 'banner',
                 'display_order' => 1,
                 'is_active' => true,
                 'configuration' => json_encode([
                     'image_path' => 'images/banerxoanhatam1.png',
-                    'description' => 'Thông tin tuyên truyền về phát triển kinh tế - xã hội của xã Đắc Tôi',
+                    'description' => 'Thông tin tuyên truyền về phát triển kinh tế - xã hội của xã Tà Bhing',
                     'link_url' => 'https://dichvucong.quangnam.gov.vn/'
                 ]),
                 'created_at' => Carbon::now(),

@@ -20,7 +20,7 @@
                     <h1 class="text-xl md:text-3xl font-bold mb-4 md:mb-6">{{ $post->title }}</h1>
                     
                     <div class="prose max-w-none text-sm md:text-base">
-                        {!! str_replace('<img', '<img class="my-2"', $post->content) !!}
+                        {!! html_entity_decode(str_replace('<img', '<img class="my-2"', $post->content)) !!}
                     </div>
 
                     @if($post->document)

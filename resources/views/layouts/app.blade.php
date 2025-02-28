@@ -28,7 +28,7 @@
                             <div class="max-w-[1200px] mx-auto px-4 sm:px-0">
                                 <div class="grid grid-cols-1 lg:grid-cols-[830px_310px] gap-[24px]">
                                     <!-- Slider Column -->
-                                    <div class="bg-white ">
+                                    <div class="bg-white">
                                     @php
                                         $configuration = is_string($sliderBlocks->configuration) 
                                             ? json_decode($sliderBlocks->configuration, true) 
@@ -54,49 +54,35 @@
                                     @endphp
 
                                         @if($sliderPosts->count() > 0)
-                                            <div 
-                                                id="homePageSlider" 
-                                                class="slider-container relative w-full h-[300px] md:h-full overflow-hidden"
-                                                data-slider-count="{{ $sliderPosts->count() }}"
-                                            >
-                                                @foreach($sliderPosts as $index => $post)
-                                                    <div 
-                                                        class="slider-item absolute inset-0 transition-opacity duration-1000 ease-in-out {{ $index == 0 ? 'opacity-100' : 'opacity-0' }}"
-                                                        data-slider-index="{{ $index }}"
-                                                    >
+                                            <div class="swiper homePageSlider">
+                                                <div class="swiper-wrapper">
+                                                    @foreach($sliderPosts as $post)
                                                         @if($post->featured_image)
-                                                            <img 
-                                                                src="{{ asset('storage/' . $post->featured_image) }}" 
-                                                                alt="{{ $post->title }}" 
-                                                                class="w-full h-full object-cover"
-                                                            >
-                                                            <div class="absolute inset-0 bg-black bg-opacity-10"></div>
-                                                            <div class="absolute bottom-0 left-0 right-0 p-4 md:p-8 text-white">
-                                                                <h2 class="text-xl md:text-3xl font-bold mb-2 md:mb-4">
-                                                                    <a href="{{ route('posts.show', $post->slug) }}" class="hover:text-blue-300 transition line-clamp-2">
-                                                                        {{ $post->title }}
-                                                                    </a>
-                                                                </h2>
-                                                                <a 
-                                                                    href="{{ route('posts.show', $post->slug) }}" 
-                                                                    class="inline-block px-4 py-2 md:px-6 md:py-3 bg-primary text-white rounded-lg hover:bg-blue-700 transition text-sm md:text-base"
+                                                            <div class="swiper-slide relative">
+                                                                <img 
+                                                                    src="{{ asset('storage/' . $post->featured_image) }}" 
+                                                                    alt="{{ $post->title }}" 
+                                                                    class="w-full h-[300px] md:h-[420px] object-cover"
                                                                 >
-                                                                    Xem chi tiết
-                                                                </a>
+                                                                <div class="absolute inset-0 bg-black bg-opacity-10"></div>
+                                                                <div class="absolute bottom-0 left-0 right-0 p-4 md:p-8 text-white">
+                                                                    <h2 class="text-xl md:text-3xl font-bold mb-2 md:mb-4">
+                                                                        <a href="{{ route('posts.show', $post->slug) }}" class="hover:text-blue-300 transition line-clamp-2">
+                                                                            {{ $post->title }}
+                                                                        </a>
+                                                                    </h2>
+                                                                    <a 
+                                                                        href="{{ route('posts.show', $post->slug) }}" 
+                                                                        class="inline-block px-4 py-2 md:px-6 md:py-3 bg-primary text-white rounded-lg hover:bg-blue-700 transition text-sm md:text-base"
+                                                                    >
+                                                                        Xem chi tiết
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         @endif
-                                                    </div>
-                                                @endforeach
-
-                                                <!-- Navigation Dots -->
-                                                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                                                    @foreach($sliderPosts as $index => $post)
-                                                        <button 
-                                                            class="slider-dot w-2 h-2 md:w-3 md:h-3 rounded-full bg-white/50 {{ $index == 0 ? 'active:bg-white' : '' }}"
-                                                            data-slider-dot="{{ $index }}"
-                                                        ></button>
                                                     @endforeach
                                                 </div>
+                                                <div class="swiper-pagination"></div>
                                             </div>
                                         @endif
                                     </div>
@@ -188,52 +174,50 @@
                         </section>
 
                         @push('scripts')
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+                        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+                        <style>
+                            .homePageSlider .swiper-pagination-bullet {
+                                background-color: #c07812;
+                                opacity: 0.7;
+                                transition: all 0.3s ease;
+                            }
+                            .homePageSlider .swiper-pagination-bullet-active {
+                                background-color: #c07812;
+                                width: 20px;
+                                border-radius: 10px;
+                            }
+
+                            .homePageSlider .swiper-button-prev,
+                            .homePageSlider .swiper-button-next {
+                                color: #c07812 !important;
+                                transition: all 0.3s ease;
+                            }
+                            .homePageSlider .swiper-button-prev:hover,
+                            .homePageSlider .swiper-button-next:hover {
+                                opacity: 0.7;
+                            }
+                        </style>
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
-                                const slider = document.getElementById('homePageSlider');
-                                const sliderItems = slider.querySelectorAll('.slider-item');
-                                const sliderDots = slider.querySelectorAll('.slider-dot');
-                                const sliderCount = parseInt(slider.dataset.sliderCount);
-                                let currentIndex = 0;
-
-                                function showSlide(index) {
-                                    // Hide all slides
-                                    sliderItems.forEach((item, i) => {
-                                        item.classList.remove('opacity-100');
-                                        item.classList.add('opacity-0');
-                                        sliderDots[i].classList.remove('bg-white');
-                                        sliderDots[i].classList.add('bg-white/50');
-                                    });
-
-                                    // Show current slide
-                                    sliderItems[index].classList.remove('opacity-0');
-                                    sliderItems[index].classList.add('opacity-100');
-                                    sliderDots[index].classList.remove('bg-white/50');
-                                    sliderDots[index].classList.add('bg-white');
-                                }
-
-                                // Auto slide
-                                function autoSlide() {
-                                    currentIndex = (currentIndex + 1) % sliderCount;
-                                    showSlide(currentIndex);
-                                }
-
-                                // Manual dot navigation
-                                sliderDots.forEach((dot, index) => {
-                                    dot.addEventListener('click', () => {
-                                        currentIndex = index;
-                                        showSlide(currentIndex);
-                                    });
-                                });
-
-                                // Start auto-sliding
-                                const autoSlideInterval = setInterval(autoSlide, 5000);
-
-                                // Optional: Pause on hover
-                                slider.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
-                                slider.addEventListener('mouseleave', () => {
-                                    clearInterval(autoSlideInterval);
-                                    const newInterval = setInterval(autoSlide, 5000);
+                                new Swiper('.homePageSlider', {
+                                    loop: true,
+                                    autoplay: {
+                                        delay: 5000,
+                                        disableOnInteraction: false,
+                                    },
+                                    pagination: {
+                                        el: '.swiper-pagination',
+                                        clickable: true
+                                    },
+                                    navigation: {
+                                        nextEl: '.swiper-button-next',
+                                        prevEl: '.swiper-button-prev',
+                                    },
+                                    effect: 'fade',
+                                    fadeEffect: {
+                                        crossFade: true
+                                    }
                                 });
                             });
                         </script>

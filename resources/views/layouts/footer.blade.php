@@ -1,4 +1,4 @@
-<footer class="bg-[#2958a0]">
+<footer class="bg-primary">
     <div class="flex items-center justify-center bg-cover bg-center bg-no-repeat" 
          style="background-image: url('{{ asset('images/trongdong_foot.png') }}')">
         <div class="w-[1200px] mx-auto py-4 md:py-8 px-4 md:px-0">

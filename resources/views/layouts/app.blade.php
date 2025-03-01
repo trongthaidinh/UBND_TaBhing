@@ -225,7 +225,7 @@
                     @endif
 
                     <!-- Main Content Area -->
-                    <div class="bg-white max-w-[1200px] mx-auto px-4 sm:px-0 pt-6">
+                    <div class="bg-white max-w-[1200px] mx-auto px-4 sm:px-0 py-6">
                         <div class="grid grid-cols-1 lg:grid-cols-[830px_310px] gap-[24px]">
                             <!-- Main Content Column -->
                             <div class="bg-white">
